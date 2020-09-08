@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:pilgrimage/pages/home.dart';
 
@@ -12,6 +14,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Pilgrimage',
       home: HomePage(),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: Colors.amber,
+        buttonColor: Colors.amber,
+        fontFamily: 'Ubuntu',
+        backgroundColor: Colors.black,
+        textTheme: TextTheme(
+          headline1: TextStyle(
+            fontSize: 25.0,
+          ),
+          bodyText1: TextStyle(
+            fontSize: 15.0,
+          )
+        )
+      ),
     );
   }
 }
