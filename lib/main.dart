@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:pilgrimage/pages/home.dart';
+import 'package:pilgrimage/pages/intro.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Pilgrimage',
-      home: HomePage(),
+      home: IntroPage(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: Colors.amber,
