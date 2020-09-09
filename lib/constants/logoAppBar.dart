@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pilgrimage/services/authService.dart';
 SliverAppBar logoAppBar({
   @required String title,
   final List<Widget> actions,
@@ -14,6 +15,10 @@ SliverAppBar logoAppBar({
             ),
             floating: true,
             pinned: false,
+            onStretchTrigger: () async {
+              return await true;
+            },
+            stretch: true,
             toolbarHeight: 80.0,
             collapsedHeight: 90.0,
             expandedHeight: 200.0,
@@ -32,7 +37,9 @@ SliverAppBar logoAppBar({
                     ),
                   ),
                 ),
-                onTap: (){},
+                onTap: (){
+                  AuthService().signOut();
+                },
               ),
             ],
             flexibleSpace: Container(

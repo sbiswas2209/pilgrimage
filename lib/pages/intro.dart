@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:pilgrimage/auth/authScreen.dart';
 import 'package:pilgrimage/pages/home.dart';
 class IntroPage extends StatelessWidget {
   @override
