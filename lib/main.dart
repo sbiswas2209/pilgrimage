@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: Colors.amber,
           buttonColor: Colors.amber,
-          fontFamily: 'Ubuntu',
+          fontFamily: 'Montserrat',
           backgroundColor: Colors.black,
           textTheme: TextTheme(
             headline1: TextStyle(
