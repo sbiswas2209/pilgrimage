@@ -298,7 +298,7 @@ class _NewPostState extends State<NewPost> {
                 'uid' : uid,
                 'url' : url,
                 'category' : dropDownValue,
-                'likes' : 0,
+                'likes' : [],
                 'docId' : documentId,
               });
 

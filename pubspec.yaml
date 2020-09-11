@@ -34,6 +34,8 @@ dependencies:
   toast: ^0.1.5
   image_picker: ^0.6.7+7
   mime: ^0.9.7
+  like_button: ^1.0.1
+  loading_animations: ^2.1.0
 
 
   # The following adds the Cupertino Icons font to your application.
