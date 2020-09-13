@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:loading_animations/loading_animations.dart';
 import 'package:mime/mime.dart';
 import 'package:pilgrimage/models/user.dart';
 import 'package:provider/provider.dart';
@@ -128,7 +129,11 @@ class _NewPostState extends State<NewPost> {
         ),
         child: Padding(
           padding: const EdgeInsets.all(15.0),
-          child: loading == true ? Center(child: CircularProgressIndicator()) : ListView(
+          child: loading == true ? Center(
+                  child: LoadingFlipping.circle(
+                    borderColor: Colors.white,
+                  ),
+                ) : ListView(
             physics: ScrollPhysics(
               parent: BouncingScrollPhysics()
             ),

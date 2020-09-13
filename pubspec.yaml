@@ -36,6 +36,9 @@ dependencies:
   mime: ^0.9.7
   like_button: ^1.0.1
   loading_animations: ^2.1.0
+  animated_button: ^0.1.2
+  flare_flutter: ^2.0.6
+  clay_containers: ^0.2.2
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -65,6 +68,7 @@ flutter:
     - assets/images/slide-2.svg
     - assets/images/authPic.svg
     - assets/images/drawer.svg
+    - assets/images/instagram_like.flr
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

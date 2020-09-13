@@ -28,6 +28,7 @@ class AuthService{
         'email' : email,
         'password' : password,
         'uid' : user.uid,
+        'saved' : [],
       });
       return _userFromFirebase(user);
   }
