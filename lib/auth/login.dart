@@ -1,3 +1,4 @@
+import 'package:flare_flutter/flare_controls.dart';
 import 'package:flutter/material.dart';
 import 'package:pilgrimage/services/authService.dart';
 import 'package:toast/toast.dart';
@@ -5,7 +6,9 @@ class LoginWidget extends StatefulWidget {
 
   final VoidCallback flagFunc;
 
-  LoginWidget({@required this.flagFunc});
+  final FlareControls flare;
+
+  LoginWidget({@required this.flagFunc, this.flare});
 
   bool loading = false;
 
@@ -80,22 +83,24 @@ class _LoginWidgetState extends State<LoginWidget> {
               });
               print(widget.loading);
               try{
+                //widget.flare.play('success');
                 await AuthService().signIn(email, password);
               }
               catch(e){
                 //await showAlert();
                 print('Login Exception');
                 print(e);
+                //widget.flare.play('test');
                 Toast.show('An error occured', context, gravity: Toast.BOTTOM, duration: Toast.LENGTH_LONG);
                 setState(() {
                   widget.loading = false;
                   email = null;
                   password = null; 
                 });
-              }
-              setState(() {
+                setState(() {
                   widget.loading = false;
                 });
+              }
               print(widget.loading);
             },
             child: Text('Log In', style: Theme.of(context).textTheme.bodyText1,),

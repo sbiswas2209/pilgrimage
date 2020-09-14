@@ -1,5 +1,7 @@
 
 
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_drawer/curved_drawer.dart';
 import 'package:flare_flutter/flare_controls.dart';
@@ -12,6 +14,8 @@ import 'package:pilgrimage/constants/postCard.dart';
 import 'package:pilgrimage/models/post.dart';
 import 'package:pilgrimage/pages/intro.dart';
 import 'package:pilgrimage/pages/newPost.dart';
+import 'package:pilgrimage/pages/savedPostsPage.dart';
+import 'package:pilgrimage/pages/settings.dart';
 import 'package:pilgrimage/services/authService.dart';
 
 class HomePage extends StatefulWidget {
@@ -33,7 +37,7 @@ class _HomePageState extends State<HomePage> {
     List<FlareControls> controls = new List();
    
     return WillPopScope(
-      onWillPop: () async => false,
+      onWillPop: () async => true,
           child: Scaffold(
         //backgroundColor: Colors.black,
           body: StreamBuilder(
@@ -58,13 +62,15 @@ class _HomePageState extends State<HomePage> {
                 (context , index){
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: PostCard(
+                    child: PostCard(//Custom Card for Posts
                       title: snapshot.data.documents[index]['title'], 
                       caption: snapshot.data.documents[index]['content'], 
                       url: snapshot.data.documents[index]['url'], 
                       id: snapshot.data.documents[index]['docId'], 
                       likes: snapshot.data.documents[index]['likes'],
                       flareControls: controls[index],
+                      creatorUid: snapshot.data.documents[index]['uid'],
+                      interactionDisabled: false,
                     ),
                   );
                 },
@@ -110,6 +116,20 @@ class _HomePageState extends State<HomePage> {
                     title: Text('Help'),
                     onTap: () {
                       Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new IntroPage()));
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.bookmark),
+                    title: Text('Saved'),
+                    onTap: (){
+                      Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new SavedPostsPage()));
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.settings),
+                    title: Text('Settings'),
+                    onTap: (){
+                      Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new SettingsPage()));
                     },
                   ),
                   ListTile(

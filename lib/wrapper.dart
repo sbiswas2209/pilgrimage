@@ -9,7 +9,7 @@ class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
-    if(user == null){
+    if(user == null){//Show Auth Screen if user is not logged in else show HomeScreen
       return AuthScreen();
     }
     else{

@@ -1,17 +1,21 @@
+import 'package:flutter/cupertino.dart';
+
 class Post{
 
   final String title;
   final String caption;
   final String url;
   final String category;
-  final String uid;
+  final String id;
+  final List<dynamic> likes;
 
   Post({
-    this.title,
-    this.caption,
-    this.category,
-    this.uid,
-    this.url,
+    @required this.title,
+    @required this.caption,
+    @required this.category,
+    @required this.id,
+    @required this.url,
+    @required this.likes,
   });
 
 }

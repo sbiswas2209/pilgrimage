@@ -22,9 +22,9 @@ SliverAppBar logoAppBar(
             ),
             floating: true,
             pinned: false,
-            onStretchTrigger: () async {
-              return await true;
-            },
+            // onStretchTrigger: () async {
+            //   return await true;
+            // },
             stretch: true,
             toolbarHeight: 80.0,
             collapsedHeight: 90.0,
@@ -57,6 +57,7 @@ SliverAppBar logoAppBar(
                 ),
               ),
             ),
+
   );
 }
 
@@ -65,12 +66,18 @@ Future<void> helpDialog(context){
     context: context,
     builder: (context){
       return AlertDialog(
-        title: Text('Get Help here'),
+        title: Text('Get to know more'),
         titleTextStyle: Theme.of(context).textTheme.headline1,
         actions: [
           FlatButton(
             onPressed: (){
               Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new IntroPage()));
+            },
+            child: Text('Help'),
+          ),
+          FlatButton(
+            onPressed: (){
+              return showAboutDialog(context: context);
             },
             child: Text('About'),
           ),
