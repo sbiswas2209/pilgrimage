@@ -1,15 +1,21 @@
 
 
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_drawer/curved_drawer.dart';
+import 'package:flare_flutter/flare_controls.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:loading_animations/loading_animations.dart';
 import 'package:pilgrimage/constants/logoAppBar.dart';
 import 'package:pilgrimage/constants/postCard.dart';
 import 'package:pilgrimage/models/post.dart';
 import 'package:pilgrimage/pages/intro.dart';
 import 'package:pilgrimage/pages/newPost.dart';
+import 'package:pilgrimage/pages/savedPostsPage.dart';
+import 'package:pilgrimage/pages/settings.dart';
 import 'package:pilgrimage/services/authService.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,40 +25,19 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  Future<List<Post>> posts;
-
-  Future<List<Post>> getPosts() async {
-
-    List<Post> data = new List();
-
-    await Firestore.instance.collection('posts').getDocuments().then((snapshot){
-      snapshot.documents.forEach((element) { 
-        data.add(new Post(
-          title: element.data['title'],
-          caption: element.data['content'],
-          url: element.data['url'],
-          uid: element.data['uid'],
-          category: element.data['category'],
-        ));
-      });
-    });
-
-    print(data[0].title);
-
-    return data;
-  }
+  
 
   
 
   @override
   Widget build(BuildContext context) {
 
-    rebuildAllChildren(context);
-    
-    posts = getPosts();
-
+   
+    int i = 0;
+    List<FlareControls> controls = new List();
+   
     return WillPopScope(
-      onWillPop: () async => false,
+      onWillPop: () async => true,
           child: Scaffold(
         //backgroundColor: Colors.black,
           body: StreamBuilder(
@@ -60,6 +45,11 @@ class _HomePageState extends State<HomePage> {
             builder: (context, snapshot) {
               if(snapshot.hasData == true){
                 print(snapshot.data);
+                
+                
+                for(i=0 ; i<snapshot.data.documents.length ; i++){
+                  controls.add(new FlareControls());
+                }
                 return CustomScrollView(
       physics: ScrollPhysics(
         parent: BouncingScrollPhysics()
@@ -72,12 +62,15 @@ class _HomePageState extends State<HomePage> {
                 (context , index){
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: PostCard(
+                    child: PostCard(//Custom Card for Posts
                       title: snapshot.data.documents[index]['title'], 
                       caption: snapshot.data.documents[index]['content'], 
                       url: snapshot.data.documents[index]['url'], 
                       id: snapshot.data.documents[index]['docId'], 
                       likes: snapshot.data.documents[index]['likes'],
+                      flareControls: controls[index],
+                      creatorUid: snapshot.data.documents[index]['uid'],
+                      interactionDisabled: false,
                     ),
                   );
                 },
@@ -88,18 +81,17 @@ class _HomePageState extends State<HomePage> {
           );
               }
               else{
-                return Center(child: CircularProgressIndicator());
+                return Center(
+                  child: LoadingFlipping.circle(
+                    borderColor: Colors.amber,
+                  ),
+                );
               }
             },
           ),
           floatingActionButton: FloatingActionButton.extended(
       onPressed: () async {
         Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new NewPost()));
-        posts = getPosts();
-        setState(() {
-          posts;
-        });
-        print(posts);
       },
       icon: Icon(Icons.add, color: Colors.white,),
       backgroundColor: Colors.amber[800],
@@ -127,6 +119,20 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                   ListTile(
+                    leading: Icon(Icons.bookmark),
+                    title: Text('Saved'),
+                    onTap: (){
+                      Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new SavedPostsPage()));
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.settings),
+                    title: Text('Settings'),
+                    onTap: (){
+                      Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new SettingsPage()));
+                    },
+                  ),
+                  ListTile(
                     leading: Icon(Icons.exit_to_app),
                     title: Text('Sign Out'),
                     onTap: () {
@@ -149,11 +155,4 @@ class _HomePageState extends State<HomePage> {
         ),
     );
   }
-  void rebuildAllChildren(BuildContext context) {
-  void rebuild(Element el) {
-    el.markNeedsBuild();
-    el.visitChildren(rebuild);
-  }
-  (context as Element).visitChildren(rebuild);
-}
 }
