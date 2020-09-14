@@ -1,7 +1,14 @@
+
+
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pilgrimage/pages/intro.dart';
 import 'package:pilgrimage/services/authService.dart';
-SliverAppBar logoAppBar({
+SliverAppBar logoAppBar(
+  context,
+  {
   @required String title,
   final List<Widget> actions,
   final VoidCallback onLogoTap,
@@ -15,9 +22,9 @@ SliverAppBar logoAppBar({
             ),
             floating: true,
             pinned: false,
-            onStretchTrigger: () async {
-              return await true;
-            },
+            // onStretchTrigger: () async {
+            //   return await true;
+            // },
             stretch: true,
             toolbarHeight: 80.0,
             collapsedHeight: 90.0,
@@ -37,8 +44,8 @@ SliverAppBar logoAppBar({
                     ),
                   ),
                 ),
-                onTap: (){
-                  AuthService().signOut();
+                onTap: () async {
+                  await helpDialog(context);
                 },
               ),
             ],
@@ -50,5 +57,32 @@ SliverAppBar logoAppBar({
                 ),
               ),
             ),
+
+  );
+}
+
+Future<void> helpDialog(context){
+  return showDialog(
+    context: context,
+    builder: (context){
+      return AlertDialog(
+        title: Text('Get to know more'),
+        titleTextStyle: Theme.of(context).textTheme.headline1,
+        actions: [
+          FlatButton(
+            onPressed: (){
+              Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new IntroPage()));
+            },
+            child: Text('Help'),
+          ),
+          FlatButton(
+            onPressed: (){
+              return showAboutDialog(context: context);
+            },
+            child: Text('About'),
+          ),
+        ],
+      );
+    }
   );
 }
