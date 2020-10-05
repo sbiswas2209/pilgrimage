@@ -1,7 +1,5 @@
 # Pilgrimage
 
-Project for Technical Recruitment for SRMKZILLA.
-
 Stack used - Flutter as frontend framework, Firestore as database, Cloud Storage as blob storage service and Firebase Authentication as Authentication Service(Only Email and Password).
 
 ### Feautures
